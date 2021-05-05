@@ -52,7 +52,7 @@ label_when_approved() {
   reviews=$(echo "$body1" | jq --raw-output '.[] | {state: .state} | @base64')
 
   body2=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/repos/${GITHUB_REPOSITORY}/pulls/${number}/requested_reviewers?per_page=100")
-  requested_reviewers=$(echo "body2" | jq '.users | length')
+  requested_reviewers=$(echo "$body2" | jq '.users | length')
   
   approvals=0
 
