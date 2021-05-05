@@ -28,7 +28,7 @@ if [[ -z "$addLabel" ]]; then
 fi
 
 addLabel2=$ADD_LABEL2
-if [[ -n "$LABEL_NAME" ]]; then
+if [[ -n "$LABEL_NAME2" ]]; then
   echo "Warning: Plase define the ADD_LABEL2 variable instead of the deprecated LABEL_NAME2."
   addLabel2=$LABEL_NAME2
 fi
