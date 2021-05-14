@@ -9,5 +9,7 @@ LABEL version="1.0.0"
 LABEL repository="https://github.com/rewardops/label-when-approved-action"
 LABEL maintainer="Steve Melo <steve.melo@rewardops.com>"
 
+RUN pip install pygithub
+
 ADD entrypoint.py /entrypoint.py
 ENTRYPOINT ["/entrypoint.py"]
