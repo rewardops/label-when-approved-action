@@ -8,7 +8,7 @@ notset = ''
 usernames_involved = set()
 d = {}
 lbl = []
-gh_ref = os.environ.get('GITHUB_REF').split('/')[2]
+gh_ref = int(os.environ.get('GITHUB_REF').split('/')[2])
 
 if os.environ.get('GITHUB_TOKEN') != None:
   gh_token = os.environ.get('GITHUB_TOKEN')
