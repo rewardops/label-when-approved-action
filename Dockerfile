@@ -1,4 +1,4 @@
-FROM 3.9.5-alpine3.13
+FROM python:3.9.5-alpine3.13
 
 LABEL "com.github.actions.name"="Label approved pull requests"
 LABEL "com.github.actions.description"="Add All Approved label pull requests when all reviewers have approved and Needs QA label when all checks have passed"
