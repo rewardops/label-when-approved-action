@@ -3,18 +3,12 @@
 import os
 from github import Github
 
-for k, v in sorted(os.environ.items()):
-    print(k+':', v)
-print('\n')
-# list elements in path environment variable
-[print(item) for item in os.environ['PATH'].split(';')]
-
-quit()
 
 notset = ''
 usernames_involved = set()
 d = {}
 lbl = []
+gh_ref = os.environ.get('GITHUB_REF').split('/')[2]
 
 if os.environ.get('GITHUB_TOKEN') != None:
   gh_token = os.environ.get('GITHUB_TOKEN')
@@ -48,7 +42,7 @@ repo_path = gh_owner + "/" + gh_repo
 g = Github(gh_token)
 
 repo = g.get_repo(repo_path)
-pr = repo.get_pull(5)
+pr = repo.get_pull(gh_ref)
 labels = pr.labels
 
 print('REPO: {}\nPR Number: {}\nPR Title: {}\n' .format(repo_path, pr.number, pr.title))
