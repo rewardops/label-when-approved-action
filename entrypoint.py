@@ -23,12 +23,6 @@ else:
   print("GITHUB_TOKEN not set")
   notset = True
 
-if os.environ.get('GITHUB_EVENT_PATH') != None:
-  gh_event_path = os.environ.get('GITHUB_EVENT_PATH')
-else:
-  print("GITHUB_EVENT_PATH not set")
-  notset = True
-
 if os.environ.get('GITHUB_REPOSITORY') != None:
   gh_repo = os.environ.get('GITHUB_REPOSITORY')
 else:
@@ -45,14 +39,13 @@ if notset == True:
   print("Environment not set. good-bye!")
   quit()
 
-repo_path = gh_owner + "/" + gh_repo
 g = Github(gh_token)
 
-repo = g.get_repo(repo_path)
+repo = g.get_repo(gh_repo)
 pr = repo.get_pull(gh_ref)
 labels = pr.labels
 
-print('REPO: {}\nPR Number: {}\nPR Title: {}\n' .format(repo_path, pr.number, pr.title))
+print('REPO: {}\nPR Number: {}\nPR Title: {}\n' .format(gh_repo, pr.number, pr.title))
 
 print('Reviews:')
 for review in pr.get_reviews():
@@ -95,7 +88,7 @@ else:
 
 # Check all tests have passed
 c = pr.get_commits()[pr.commits -1]
-br = g.get_repo(repo_path).get_commit(c.sha)
+br = g.get_repo(gh_repo).get_commit(c.sha)
 
 if br.get_combined_status().state == "success":
   print("All checks have passed")
