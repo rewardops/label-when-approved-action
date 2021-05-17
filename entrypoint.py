@@ -69,11 +69,12 @@ for approver in usernames_involved:
     if pr.get_review(review.id).state == "APPROVED":
       d[review.user.login] = pr.get_review(review.id).state
 
-approvals = len(d)
+approvals = len(d.keys())
+reviewers = len(usernames_involved)
 review_requests = len(pr.get_review_requests())
 
-print('\nNeed {} approvers. Got {}' .format(review_requests, approvals))
-if approvals == review_requests:
+print('\nNeed {} approvers. Got {}' .format(reviewers, approvals))
+if approvals == reviewers:
   if 'Approved by all' not in lbl:
     print("Adding label 'Approved by all'")
     pr.add_to_labels('Approved by all')
@@ -89,6 +90,7 @@ else:
 # Check all tests have passed
 c = pr.get_commits()[pr.commits -1]
 br = g.get_repo(gh_repo).get_commit(c.sha)
+print(br.get_combined_status().state)
 
 if br.get_combined_status().state == "success":
   print("All checks have passed")
