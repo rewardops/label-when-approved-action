@@ -90,9 +90,8 @@ else:
 # Check all tests have passed
 c = pr.get_commits()[pr.commits -1]
 br = g.get_repo(gh_repo).get_commit(c.sha)
-print(br.get_combined_status().state)
 
-if br.get_combined_status().state == "success":
+if br.get_combined_status().state == "success" and approvals == reviewers:
   print("All checks have passed")
   if 'Needs QA' not in lbl:  
     print("Adding label 'Needs QA'")
@@ -100,7 +99,7 @@ if br.get_combined_status().state == "success":
   else:
     print("'Needs Qa' label already set, not adding")
 else:
-  print("Some checks have not passed")
+  print("Some checks have not passed or not all reviews are complete")
   if 'Needs QA' in lbl:
     print("Removing label 'Needs QA'")
     pr.remove_from_labels('Needs QA')
