@@ -95,7 +95,7 @@ if br.get_combined_status().state == "success" and approvals == reviewers:
   print("All checks have passed")
   if 'Needs QA' not in lbl:  
     print("Adding label 'Needs QA'")
-    pr.add_to_lables('Needs QA')
+    pr.add_to_labels('Needs QA')
   else:
     print("'Needs Qa' label already set, not adding")
 else:
