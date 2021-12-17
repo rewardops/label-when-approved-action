@@ -43,6 +43,7 @@ g = Github(gh_token)
 
 repo = g.get_repo(gh_repo)
 pr = repo.get_pull(gh_ref)
+pr_author = pr.user.login
 labels = pr.labels
 
 print('REPO: {}\nPR Number: {}\nPR Title: {}\n' .format(gh_repo, pr.number, pr.title))
@@ -71,6 +72,15 @@ for approver in usernames_involved:
 
 approvals = len(d.keys())
 reviewers = len(usernames_involved)
+
+# The author of a pr can't also be a reviewer so the `reviewers` count must be adjusted
+if pr_author in usernames_involved:
+  reviewers -= 1
+
+# This should not happen unless the author finds a way to approve there own pr
+if pr_author in d:
+  approvals -= 1
+
 review_requests = len(pr.get_review_requests())
 
 print('\nNeed {} approvers. Got {}' .format(reviewers, approvals))
